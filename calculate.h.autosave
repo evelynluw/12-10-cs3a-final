@@ -1,0 +1,15 @@
+#ifndef CALCULATE_H
+#define CALCULATE_H
+#include "parser.h"
+
+class Calculate
+{
+public:
+    Calculate();
+    void start();
+    
+private:
+    Parser parser;
+};
+
+#endif // CALCULATE_H
