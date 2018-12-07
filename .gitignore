@@ -1,5 +1,5 @@
 # QT User config file #
-.pro.user
+*.pro.user
 
 # OS generated files #
 ######################
