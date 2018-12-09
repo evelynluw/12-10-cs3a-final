@@ -31,6 +31,14 @@ string Parser::getRpn() const {
 
 
 //PRIVATE
+void Parser::initialize() {
+    if(!mixedStk.empty())
+        mixedStk.pop();
+    if(!opStk.empty())
+        opStk.pop();
+
+}
+
 void Parser::splitInput() { //split userIn into mixedStk and opStk
 
 }

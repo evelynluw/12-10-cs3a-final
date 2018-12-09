@@ -2,8 +2,10 @@
 
 using namespace std;
 
+#include "calculate.h"
+
 int main()
 {
-
-    return 0;
+    Calculate cal;
+    cal.test();
 }

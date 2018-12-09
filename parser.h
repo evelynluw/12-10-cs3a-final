@@ -19,8 +19,10 @@ public:
 private:
     stack<mixedNumber> mixedStk; //mixed number stack
     stack<char> opStk; //operator stack
+    stack<string> rpnStk; //rpn as a stack.
     string userIn; //user input, e.g. "3 1/2 + 5.6 * 7/9 / 10"
     string rpn; //output rpn, e.g. "3 1/2 5.6 7/9 * 10 / +"
+    void initialize();
     void splitInput(); //split userIn into mixedStk and opStk
     void generateRpn(); //when mixedStk and opStk are done, generate Rpn string
 };
