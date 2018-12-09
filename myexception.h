@@ -15,8 +15,10 @@ private:
     E() {}
 };
 
-const E e_wrong_input_format("wrong input format");
 const E e_divide_by_zero("number is divided by zero");
-const E e_argm_error("your arguments are incorrect");
+const E e_argm_error("arguments are incorrect");
+
+//parser errors
+const E e_error_input("Your input is incorrect. Please double check.");
 
 #endif // MYEXCEPTION_H
