@@ -14,7 +14,7 @@ std::istream& operator>>(std::istream& in, fraction &frac) //tested
     char junk;
     int part1, part2;
 
-    if(isdigit(in.peek())||in.peek()=='+')
+    if(isdigit(in.peek())||in.peek()=='+'||in.peek()==' ')
     {
         in>>part1;
         if(in.peek() == '/') {
@@ -41,7 +41,7 @@ std::istream& operator>>(std::istream& in, fraction &frac) //tested
     }
 
     else
-        std::cout<<"Wrong fraction input"<<std::endl;
+        throw E("Wrong fraction input");
     return in;
 }
 

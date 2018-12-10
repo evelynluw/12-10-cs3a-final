@@ -1,4 +1,5 @@
 #include "fraction.h"
+#include "myexception.h"
 
 //PUBLIC
 //CTORS

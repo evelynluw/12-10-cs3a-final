@@ -15,7 +15,7 @@ std::ostream& operator<<( std::ostream &out, const mixedNumber &m)
 
 std::istream& operator>>( std::istream &in, mixedNumber &m)
 { //TESTED
-    fraction part1;
+    fraction part1, part2;
     fraction sign = 1;
     char junk;
 
@@ -26,8 +26,8 @@ std::istream& operator>>( std::istream &in, mixedNumber &m)
 
     in>>part1;
     if(in.peek()==' ') {
-        in>>m;
-        m += part1;
+        in>>part2;
+        m = (part1 + part2);
     }
     else {
         m = part1;

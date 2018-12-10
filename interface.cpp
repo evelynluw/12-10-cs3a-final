@@ -18,6 +18,7 @@ void start() {
     showCentered("or mixed numbers(e.g. 3 4/5) and present the result in a proper form. ");
     showCentered("'+' '-' '*' '/' are allowed operators. ");
     showCentered("You do not have to wrap operators with spaces. ");
+    showCentered("Exit with return. ");
     showLine('=');
 }
 

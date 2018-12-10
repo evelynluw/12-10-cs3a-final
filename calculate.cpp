@@ -37,8 +37,17 @@ void Calculate::process() {
         }
         else if (t == OPERAND) {
             opr = token;
-            if(pendingOpr||(rit==(--tkStk.rend())) ) {
-                while(!oprStk.empty()) {
+            if(rit==(--tkStk.rend())) {
+                if(oprStk.empty()){
+                    oprStk.push(opr);
+                    opr = 0;
+                }
+                if(opStk.empty())
+                    opStk.push('+');
+                pendingOpr = true;
+            }
+            if(pendingOpr) {
+                while(!oprStk.empty() & !opStk.empty()) {
                     opr1 = oprStk.top();
                     oprStk.pop();
                     op = opStk.top();
