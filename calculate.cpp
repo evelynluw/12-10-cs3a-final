@@ -57,3 +57,10 @@ vector<string> Calculate::split(string noMixedSp) {
     ss.clear();
     return strv;
 }
+
+Calculate::tokenType Calculate::checkType(string token) {
+    //check if operator or operand
+    if(string("+-*/").find(token[0]) != string::npos)
+        return OPERATOR;
+    return OPERAND;
+}

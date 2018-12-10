@@ -12,13 +12,20 @@ class Calculate
 {
 public:
     Calculate();
-    void start();
+    Calculate(string rpn);
+    void process();
+
     void test();
 
 private:
-    Parser parser;
+    enum tokenType {
+        OPERAND,
+        OPERATOR
+    };
+    string rpn;
     string subMixedSpace(string str); //subsitute the space in mixed Numbers
     vector<string> split(string noMixedSp); //split a rpn string with no mixed spaces into tokens
+    tokenType checkType(string token); //check if operator or operand
 };
 
 #endif // CALCULATE_H

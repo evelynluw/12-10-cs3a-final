@@ -9,6 +9,8 @@ int main()
     try {
         Parser par("3 3/4 + 5 - (7.3 + 8 2/3) * 5/6/3 5/6/3.2");
         par.process();
+        cout<<par.getUserIn()<<endl;
+        cout<<par.getRpn()<<endl;
     }
     catch (const regex_error e) {
         cout<<e.what()<<endl;
