@@ -14,10 +14,12 @@ class mixedNumber : public fraction
         mixedNumber(const mixedNumber &other);
         mixedNumber(const double &other);
         mixedNumber(const fraction &other) : fraction(other) {}
+        mixedNumber(const string &other);
         mixedNumber& operator=(const mixedNumber &other);
         mixedNumber& operator=(const fraction &other);
         mixedNumber& operator=(const int &other);
         mixedNumber& operator=(const double &other);
+        mixedNumber& operator=(const string &other);
 
         void getValues(int &w, int &n, int &d);
         int getWhole() const;

@@ -5,6 +5,63 @@ Calculate::Calculate()
 
 }
 
+Calculate::Calculate(string _rpn) {
+    rpn = _rpn;
+}
+
+Calculate::~Calculate() {
+    rpn = "";
+}
+
+void Calculate::process() {
+    vector<string> tkStk = split(rpn);;
+    vector<string>::reverse_iterator rit = tkStk.rbegin();
+    stack<char> opStk;
+    stack<mixedNumber> oprStk;
+    tokenType t;
+    string token;
+    mixedNumber opr, opr1;
+    char op;
+    bool pendingOpr = false;
+    for(;rit!=tkStk.rend(); ++rit) {
+        t = checkType((token = *rit));
+        if (t == OPERATOR) {
+            opStk.push(token[0]);
+            pendingOpr = false;
+        }
+        else if (t == OPERAND) {
+            opr = token;
+            if(pendingOpr) {
+                while(!oprStk.empty()) {
+                    opr1 = oprStk.top();
+                    oprStk.pop();
+                    op = opStk.top();
+                    opStk.pop();
+                    switch (op) {
+                    case '+': opr = opr1 + opr; break;
+                    case '-': opr = opr1 - opr; break;
+                    case '*': opr = opr1 * opr; break;
+                    case '/': opr = opr1 / opr; break;
+                    default: break;
+                    }
+                }
+            }
+            oprStk.push(opr);
+            pendingOpr = true;
+        }
+    }
+    if(!oprStk.empty())
+        result = oprStk.top();
+}
+
+string Calculate::getRpn() const {
+    return rpn;
+}
+
+mixedNumber Calculate::getResult() const {
+    return result;
+}
+
 void Calculate::test() {
     vector<string> strv;
     strv = split(subMixedSpace("3 4 5/6 7 + * -"));
@@ -13,13 +70,6 @@ void Calculate::test() {
         ++it)
         cout<<*it<<",";
 }
-
-
-
-
-
-
-
 
 //Private
 string Calculate::subMixedSpace(string str) {
@@ -54,7 +104,7 @@ vector<string> Calculate::split(string noMixedSp) {
             part[pos]=' '; //here replace '_' back to ' '
         strv.push_back(part);
     }
-    ss.clear();
+    strv.pop_back();
     return strv;
 }
 

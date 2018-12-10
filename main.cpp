@@ -7,10 +7,14 @@ using namespace std;
 int main()
 {
     try {
-        Parser par("3 3/4 + 5 - (7.3 + 8 2/3) * 5/6/3 5/6/3.2");
+        Parser par("1+(1+1)*1 2/3");
         par.process();
-        cout<<par.getUserIn()<<endl;
-        cout<<par.getRpn()<<endl;
+//        cout<<par.getUserIn()<<endl;
+//        cout<<par.getRpn()<<endl;
+        Calculate cal(par.getRpn());
+        cal.process();
+        cout<<cal.getRpn()<<endl;
+        cout<<cal.getResult()<<endl;
     }
     catch (const regex_error e) {
         cout<<e.what()<<endl;

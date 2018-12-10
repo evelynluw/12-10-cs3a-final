@@ -25,6 +25,10 @@ mixedNumber::mixedNumber(const mixedNumber &other)
     copy(other);
 }
 
+mixedNumber::mixedNumber(const string &other) {
+    *this = other;
+}
+
 mixedNumber& mixedNumber::operator=(const mixedNumber &other)
 {
     if(this != &other)
@@ -53,6 +57,13 @@ mixedNumber& mixedNumber::operator=(const double &other)
 {
     fraction temp(other);
     *this = temp;
+    return *this;
+}
+
+mixedNumber& mixedNumber::operator=(const string &other) {
+    stringstream ss;
+    ss<<other;
+    ss>>*this;
     return *this;
 }
 

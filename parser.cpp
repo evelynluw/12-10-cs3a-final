@@ -90,39 +90,6 @@ void Parser::process() {
        }
    }
 
-   //compare the priority of the operator in top of stack and the one just read in
-   /*bool Parser::highpriority(the one that read in, R, char top)
-   {
-       read in one call r, not sure how to make this into char
-       if(top == '*' || top == '/')
-       {
-           if(R == '*' || R == '/' )
-           {
-               return false;
-           }
-
-           else
-           {
-               return;
-           }
-       }
-
-       else if(top == '+' || top == '-')
-       {
-           if(R == '*' || R == '/' )
-           {
-               return;
-           }
-
-           else
-           {
-               return false;
-           }
-
-       }
-
-   }*/
-
 string Parser::getUserIn() const {
     return userIn;
 }

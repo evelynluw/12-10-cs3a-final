@@ -237,10 +237,14 @@ void fraction::DecimaltoFrac(const double &other, int &_num, int &_denom) {
     */
 
     //simple string method
+    //ref: https://stackoverflow.com/questions/26643695/converting-decimal-to-fraction-c
+    const int precision = 100000;
     std::string decimal = std::to_string(other),
             fracPart = decimal.substr(decimal.find('.')+1);
     int digits = fracPart.size();
     _denom = makeDenom(digits, allDecimalsTheSame(fracPart));
+    if(_denom>precision)
+        _denom = precision;
     _num = other * _denom;
 }
 

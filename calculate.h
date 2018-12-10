@@ -12,17 +12,22 @@ class Calculate
 {
 public:
     Calculate();
-    Calculate(string rpn);
+    Calculate(string _rpn);
+    ~Calculate();
     void process();
+    string getRpn() const;
+    mixedNumber getResult() const;
 
     void test();
 
 private:
     enum tokenType {
+        NOTHING,
         OPERAND,
         OPERATOR
     };
     string rpn;
+    mixedNumber result;
     string subMixedSpace(string str); //subsitute the space in mixed Numbers
     vector<string> split(string noMixedSp); //split a rpn string with no mixed spaces into tokens
     tokenType checkType(string token); //check if operator or operand
