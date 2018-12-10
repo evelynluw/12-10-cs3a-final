@@ -2,11 +2,6 @@
 
 //PUBLIC
 
-void Parser::test() {
-    cout<<delSpace("3 3/4 + 5 - 7.3 + 8 2/3 * 5/6/3 5/6/3.2")<<endl;
-}
-
-
 Parser::Parser() {//init all variables
     setUserIn("");
 }
@@ -21,6 +16,7 @@ Parser::~Parser() {
 
 void Parser::setUserIn(string _userIn) {
     userIn = _userIn;
+    process();
 }
 
 void Parser::process() {
@@ -29,6 +25,7 @@ void Parser::process() {
      * from userIn
      * to rpn
      */
+    rpn = "";
     string str, token;
        str = delSpace(userIn);
        tokenType t;
@@ -76,6 +73,7 @@ void Parser::process() {
                }
                operators.pop();
            }
+           token = "";
        }
 
        //not sure about this last part is correct, both the way of format and function
@@ -122,15 +120,26 @@ Parser::tokenType Parser::getToken(string &str, string &token) {
     if(str.size() == 0)
         return NOTHING;
 
+    if(prefix) {
+        token = str[0];
+        str.erase(0,1);
+        prefix = false;
+    }
+
     regex mixedNumber("^(\\d+\\.\\d+|\\d+\\s\\d+\\/\\d+|\\d+\\/\\d+|\\d+|\\.\\d+)([()*/+-]|$)"),
         //match any mixed number from start of line followed by an operator or bracket or end of string
             op("^[*/+-]"), //any operators
+            doubleOp("^[(*/+-][+-]"),
             leftBracket("^\\("),
             rightBracket("^\\)");
     smatch match;
 
+    if(regex_search(str, match, doubleOp)) {
+        prefix = true;
+    }
+
     if(regex_search(str, match, mixedNumber)) {
-        token = match.str(1);
+        token += match.str(1);
         str.erase(0,match.length(1));
         size_t pos;
         while((pos=token.find(' '))!=string::npos)
@@ -145,6 +154,8 @@ Parser::tokenType Parser::getToken(string &str, string &token) {
     }
 
     if(regex_search(str, match, leftBracket)) {
+        if(str.find(')')==string::npos)
+            throw E("missing closing bracket");
         token = "(";
         str.erase(0,1);
         return LEFT_BRACKET;
@@ -156,6 +167,7 @@ Parser::tokenType Parser::getToken(string &str, string &token) {
         return RIGHT_BRACKET;
     }
 
+    cout<<"can't parse char: ["<<str[0]<<']'<<endl;
     throw e_error_input; //all other cases should be errors
 
 }

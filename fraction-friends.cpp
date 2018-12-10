@@ -13,8 +13,10 @@ std::istream& operator>>(std::istream& in, fraction &frac) //tested
 {
     char junk;
     int part1, part2;
-    if(in>>part1)
+
+    if(isdigit(in.peek())||in.peek()=='+')
     {
+        in>>part1;
         if(in.peek() == '/') {
             in>>junk>>part2;
             frac.setValue(part1, part2);
@@ -22,8 +24,8 @@ std::istream& operator>>(std::istream& in, fraction &frac) //tested
         else if(in.peek() == '.')
         {
             in>>junk>>part2;
-            double doublePart = frac.makeDouble(part1, part2);
-            frac.DecimaltoFrac(doublePart, frac.num, frac.denom);
+            double decimal = frac.makeDouble(part1, part2);
+            frac.DecimaltoFrac(decimal, frac.num, frac.denom);
             frac.reduce();
         }
         else{
@@ -31,6 +33,13 @@ std::istream& operator>>(std::istream& in, fraction &frac) //tested
             frac.denom = 1;
         }
     }
+    else if(in.peek() =='.') {
+        in>>junk>>part2;
+        double decimal = frac.makeDouble(0, part2);
+        frac.DecimaltoFrac(decimal, frac.num, frac.denom);
+        frac.reduce();
+    }
+
     else
         std::cout<<"Wrong fraction input"<<std::endl;
     return in;

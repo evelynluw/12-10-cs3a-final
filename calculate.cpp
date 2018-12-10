@@ -1,12 +1,17 @@
 #include "calculate.h"
 
+void Calculate::test() {
+    setRpn("3 4 2 * 1 5 - 2 3 ^ ^ / +");
+    cout<<result<<endl;
+}
+
 Calculate::Calculate()
 {
 
 }
 
 Calculate::Calculate(string _rpn) {
-    rpn = _rpn;
+    setRpn(_rpn);
 }
 
 Calculate::~Calculate() {
@@ -14,6 +19,7 @@ Calculate::~Calculate() {
 }
 
 void Calculate::process() {
+    result = 0;
     vector<string> tkStk = split(rpn);;
     vector<string>::reverse_iterator rit = tkStk.rbegin();
     stack<char> opStk;
@@ -31,17 +37,17 @@ void Calculate::process() {
         }
         else if (t == OPERAND) {
             opr = token;
-            if(pendingOpr) {
+            if(pendingOpr||(rit==(--tkStk.rend())) ) {
                 while(!oprStk.empty()) {
                     opr1 = oprStk.top();
                     oprStk.pop();
                     op = opStk.top();
                     opStk.pop();
                     switch (op) {
-                    case '+': opr = opr1 + opr; break;
-                    case '-': opr = opr1 - opr; break;
-                    case '*': opr = opr1 * opr; break;
-                    case '/': opr = opr1 / opr; break;
+                    case '+': opr = opr + opr1; break;
+                    case '-': opr = opr - opr1; break;
+                    case '*': opr = opr * opr1; break;
+                    case '/': opr = opr / opr1; break;
                     default: break;
                     }
                 }
@@ -54,21 +60,17 @@ void Calculate::process() {
         result = oprStk.top();
 }
 
+void Calculate::setRpn(string _rpn) {
+    rpn = _rpn;
+    process();
+}
+
 string Calculate::getRpn() const {
     return rpn;
 }
 
 mixedNumber Calculate::getResult() const {
     return result;
-}
-
-void Calculate::test() {
-    vector<string> strv;
-    strv = split(subMixedSpace("3 4 5/6 7 + * -"));
-    for(vector<string>::iterator it=strv.begin();
-        it!=strv.end();
-        ++it)
-        cout<<*it<<",";
 }
 
 //Private
@@ -96,7 +98,7 @@ vector<string> Calculate::split(string noMixedSp) {
     stringstream ss;
     string part;
     size_t pos = 0;
-    ss<<subMixedSpace(noMixedSp);
+    ss<<noMixedSp;
     vector<string> strv;
     while(!ss.eof()) {
         ss>>part;
@@ -110,7 +112,8 @@ vector<string> Calculate::split(string noMixedSp) {
 
 Calculate::tokenType Calculate::checkType(string token) {
     //check if operator or operand
-    if(string("+-*/").find(token[0]) != string::npos)
-        return OPERATOR;
+    if(token.size()==1)
+        if(string("+-*/").find(token[0]) != string::npos)
+            return OPERATOR;
     return OPERAND;
 }

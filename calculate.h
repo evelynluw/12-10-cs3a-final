@@ -15,6 +15,7 @@ public:
     Calculate(string _rpn);
     ~Calculate();
     void process();
+    void setRpn(string _rpn);
     string getRpn() const;
     mixedNumber getResult() const;
 

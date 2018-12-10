@@ -10,11 +10,13 @@ SOURCES += \
     mixednumber.cpp \
     mixednumber-friends.cpp \
     parser.cpp \
-    calculate.cpp
+    calculate.cpp \
+    interface.cpp
 
 HEADERS += \
     fraction.h \
     mixednumber.h \
     parser.h \
     calculate.h \
-    myexception.h
+    myexception.h \
+    interface.h

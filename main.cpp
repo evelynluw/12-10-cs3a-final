@@ -2,19 +2,27 @@
 
 using namespace std;
 
+
 #include "calculate.h"
+#include "interface.h"
 
 int main()
 {
     try {
-        Parser par("1+(1+1)*1 2/3");
-        par.process();
-//        cout<<par.getUserIn()<<endl;
-//        cout<<par.getRpn()<<endl;
-        Calculate cal(par.getRpn());
-        cal.process();
-        cout<<cal.getRpn()<<endl;
-        cout<<cal.getResult()<<endl;
+        Parser par;
+        Calculate cal;
+
+        start();
+
+        while(1) {
+            par.setUserIn(prompt());
+            cal.setRpn(par.getRpn());
+            showLine('.');
+            cout<<" RPN:    "<<par.showRpn()<<endl;
+            showLine('.');
+            cout<<" RESULT: "<<cal.getResult()<<endl;
+            showLine('=');
+        }
     }
     catch (const regex_error e) {
         cout<<e.what()<<endl;
@@ -37,5 +45,8 @@ int main()
         case regex_constants::error_stack: cout << "There was insufficient memory to determine whether the regular expression could match the specified character sequence."; break;
         }
         cout<<endl;
+    }
+    catch (E &e) {
+        cout << "error: " << e.what() <<endl;
     }
 }

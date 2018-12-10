@@ -10,8 +10,6 @@ using namespace std;
 class Parser
 {
 public:
-    void test();
-
     Parser();//init all variables
     Parser(string _userIn);//init with userInput & convert
     ~Parser();
@@ -24,6 +22,7 @@ public:
 private:
     string userIn; //user input, e.g. "3 1/2 + 5.6 * 7/9 / 10"
     string rpn; //output rpn with underscores, e.g. "3_1/2 5.6 7/9 * 10 / +"
+    bool prefix = false;
     enum tokenType { //for the shunting yard algorithm
         NUMBER,
         OPERATOR,
