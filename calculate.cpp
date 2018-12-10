@@ -23,6 +23,7 @@ void Calculate::test() {
 
 //Private
 string Calculate::subMixedSpace(string str) {
+    //REPEATED IN PARSER CLASS
     /* subsitute the space in mixed Numbers.
      * e.g. str = "3 4 5/6 7 + * -"
      * output = "3 4_5/6 7 + * -"

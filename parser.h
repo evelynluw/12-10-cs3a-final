@@ -25,13 +25,15 @@ private:
     string rpn; //output rpn, e.g. "3 1/2 5.6 7/9 * 10 / +"
     enum tokenType { //for the shunting yard algorithm
         NUMBER,
-        FUNCTION,
         OPERATOR,
         LEFT_BRACKET,
         RIGHT_BRACKET,
         NOTHING
     };
     tokenType getToken(string &str, string &token); //extract a token from the beginning of str
+    string subMixedSpace(string str); //subsitute the space in mixed Numbers
+    string delSpace(string str); //delete all spaces except for mixed number space
+
 };
 
 #endif // PARSER_H
